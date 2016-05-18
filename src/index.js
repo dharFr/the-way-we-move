@@ -17,14 +17,6 @@ window.addEventListener('resize', syncSize, false)
 
 canvas.addEventListener('click', _ => colors.nextPalette())
 
-function drawCircle({x, y, radius, color}) {
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI*2, true);
-  ctx.closePath();
-  ctx.fillStyle = color;
-  ctx.fill();
-}
-
 function createRandomPoint() {
   points.push(new Point({
     x        : Math.floor(Math.random() * canvas.width),
@@ -49,17 +41,6 @@ function drawScene(timestamp=performance.now()) {
   // Background
   ctx.fillStyle = colors.toCSS(palette, 0)
   ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-  // some shapes, just to see the colors
-  const radius = 20
-  for (var i = 1; i < palette.length; i++) {
-    drawCircle({
-      x: radius + 5,
-      y: (2 * radius + 5) * i,
-      radius,
-      color: colors.toCSS(palette, i)
-    })
-  }
 
   // draw those points
   points.map((p,i) => {
