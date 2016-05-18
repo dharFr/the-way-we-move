@@ -1,14 +1,19 @@
 
-import fullPageCanvas from 'full-page-canvas'
 import * as colors from './colors.js'
 import Point from './point.js'
 
-const canvas = fullPageCanvas.mount()
-const ctx = canvas.getContext('2d')
+const canvas     = document.getElementById('canvas')
+const ctx        = canvas.getContext('2d')
 const NUM_POINTS = 100
-const points = []
+const points     = []
 
 let lasttime = 0
+function syncSize() {
+  canvas.width = window.innerWidth;
+  canvas.height = 300;
+}
+syncSize()
+window.addEventListener('resize', syncSize, false)
 
 canvas.addEventListener('click', _ => colors.nextPalette())
 

@@ -10,7 +10,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "full-page-canvas": "^0.1.0",
     "hex-rgb": "^1.0.0",
     "request-frame": "^1.4.1"
   },

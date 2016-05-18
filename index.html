@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class='fullpage'>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Document</title>
+  <title>And yet it moves</title>
+  <style>
+    .fullpage {
+      display: "block";
+      border: "none";
+      margin: 0;
+      padding: 0;
+      width: "100%";
+      height: "100%";
+    }
+    canvas {
+      display: "block";
+      border: "none";
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
-<body>
+<body class='fullpage'>
+  <canvas id="canvas"></canvas>
   <script src="dist/bundle.js"></script>
 </body>
 </html>
