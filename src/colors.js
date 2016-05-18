@@ -65,7 +65,7 @@ export function toCSS(colors, idx) {
   return `rgb(${c[0]}, ${c[1]}, ${c[2]})`
 }
 
-export function getPalette(timestamp=performance.now()) {
+export function getPalette(timestamp) {
   if (prev == null) {
     next = getRamdomPalette()
     logPalette(`Picked initial color palette`, next)
