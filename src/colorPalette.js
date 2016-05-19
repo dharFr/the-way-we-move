@@ -1,7 +1,22 @@
+import contrast from 'wcag-contrast'
 import hexRgb from 'hex-rgb'
 
 function toFunctionalNotation(c) {
   return `rgb(${c[0]}, ${c[1]}, ${c[2]})`
+}
+
+// See https://mattdesl.svbtle.com/generative-art-with-nodejs-and-canvas#color-contrast_2
+function getBestContrast (background, colors) {
+  let bestContrastIdx = 0
+  let bestContrast = 0
+  colors.forEach((p, i) => {
+    const ratio = contrast.rgb(background, p)
+    if (ratio > bestContrast) {
+      bestContrastIdx = i
+      bestContrast = ratio
+    }
+  })
+  return colors[bestContrastIdx]
 }
 
 export default class ColorPalette {
@@ -12,10 +27,15 @@ export default class ColorPalette {
     this.colors = colors.map(c => Array.isArray(c) ? c : hexRgb(c))
 
     this._background = this.colors[0]
+    this._foreground = getBestContrast(this._background, this.colors.slice(1))
   }
 
   background() {
     return toFunctionalNotation(this._background)
+  }
+
+  foreground() {
+    return toFunctionalNotation(this._foreground)
   }
 
   color(idx) {

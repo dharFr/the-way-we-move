@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "hex-rgb": "^1.0.0",
-    "request-frame": "^1.4.1"
+    "request-frame": "^1.4.1",
+    "wcag-contrast": "^0.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",

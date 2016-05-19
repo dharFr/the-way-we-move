@@ -73,7 +73,7 @@ function drawScene(timestamp=performance.now()) {
 
   analyser.draw({
     ctx,
-    color: palette.color(2),
+    color: palette.foreground(),
     width: canvas.width,
     height: canvas.height
   })
