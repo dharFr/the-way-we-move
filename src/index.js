@@ -1,11 +1,13 @@
 
 import * as colors from './colors.js'
 import Point from './point.js'
+import AudioAnalyser from './audioAnalyser.js'
 
 const canvas     = document.getElementById('canvas')
 const ctx        = canvas.getContext('2d')
 const NUM_POINTS = 100
 const points     = []
+const analyser = new AudioAnalyser
 
 let lasttime = 0
 function syncSize() {
@@ -55,6 +57,13 @@ function drawScene(timestamp=performance.now()) {
       // console.log('>>> redrawing')
       p.draw(ctx, colors.toCSS(palette, p.colorIdx))
     }
+  })
+
+  analyser.draw({
+    ctx,
+    color: colors.toCSS(palette, 2),
+    width: canvas.width,
+    height: canvas.height
   })
 
   lasttime = timestamp
