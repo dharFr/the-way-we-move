@@ -3,16 +3,17 @@ import * as colors from './colors.js'
 import Point from './point.js'
 import AudioAnalyser from './audioAnalyser.js'
 
-const canvas     = document.getElementById('canvas')
-const ctx        = canvas.getContext('2d')
-const NUM_POINTS = 100
-const points     = []
-const analyser = new AudioAnalyser
+const canvas                    = document.getElementById('canvas')
+const ctx                       = canvas.getContext('2d')
+const NUM_POINTS                = 100
+const points                    = []
+const waveFormAnalyser          = new AudioAnalyser(1024)
+const frequencyBarGraphAnalyser = new AudioAnalyser()
 
 let lasttime = 0
 function syncSize() {
-  canvas.width = window.innerWidth;
-  canvas.height = 300;
+  canvas.width  = window.innerWidth
+  canvas.height = window.innerHeight
 }
 syncSize()
 window.addEventListener('resize', syncSize, false)
@@ -71,12 +72,14 @@ function drawScene(timestamp=performance.now()) {
     }
   })
 
-  analyser.draw({
+  const drawParams = {
     ctx,
     color: palette.foreground(),
     width: canvas.width,
     height: canvas.height
-  })
+  }
+  waveFormAnalyser.drawWaveform(drawParams)
+  frequencyBarGraphAnalyser.drawFrequencyBarGraph(drawParams)
 
   lasttime = timestamp
 }
