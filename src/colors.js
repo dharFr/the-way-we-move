@@ -59,7 +59,6 @@ export function getPalette(timestamp) {
   const progress = Math.round((timestamp - pickTime) / TRANSITION_TIME * 100) / 100
   if (progress >= 1) {
     togglePalettes(timestamp)
-    console.log(`<<< done`)
   }
   else if (progress > 0) {
     updateCurrentPalette(prev, next, progress)

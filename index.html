@@ -4,25 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>The way we move</title>
-  <style>
-    .fullpage {
-      display: "block";
-      border: "none";
-      margin: 0;
-      padding: 0;
-      width: "100%";
-      height: "100%";
-    }
-    canvas {
-      display: "block";
-      border: "none";
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class='fullpage'>
   <canvas id="canvas"></canvas>
+  <div id='controlPanel' class="control-panel">
+    <label for="toogleWaveform">
+      <input type="checkbox" name="toogleWaveform" id="toogleWaveform"/>
+      Waveform
+    </label>
+    <label for="toogleFrequencyBarGraph">
+      <input type="checkbox" name="toogleFrequencyBarGraph" id="toogleFrequencyBarGraph"/>
+      Frequency Bar Graph
+    </label>
+  </div>
   <script src="dist/bundle.js"></script>
 </body>
 </html>

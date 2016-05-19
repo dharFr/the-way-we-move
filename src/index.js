@@ -2,13 +2,14 @@
 import * as colors from './colors.js'
 import Point from './point.js'
 import AudioAnalyser from './audioAnalyser.js'
+import controlPanel from './controlPanel.js'
 
-const canvas                    = document.getElementById('canvas')
-const ctx                       = canvas.getContext('2d')
-const NUM_POINTS                = 100
-const points                    = []
-const waveFormAnalyser          = new AudioAnalyser(1024)
-const frequencyBarGraphAnalyser = new AudioAnalyser()
+const canvas          = document.getElementById('canvas')
+const ctx             = canvas.getContext('2d')
+const NUM_POINTS      = 100
+const points          = []
+const wfAnalyser      = new AudioAnalyser(1024)
+const fbgAnalyser     = new AudioAnalyser()
 
 let lasttime = 0
 function syncSize() {
@@ -16,8 +17,8 @@ function syncSize() {
   canvas.height = window.innerHeight
 }
 syncSize()
-window.addEventListener('resize', syncSize, false)
 
+window.addEventListener('resize', syncSize, false)
 canvas.addEventListener('click', _ => colors.nextPalette())
 
 function generateRandomPoints(palette) {
@@ -54,6 +55,9 @@ function drawScene(timestamp=performance.now()) {
   ctx.fillStyle = palette.background()
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
+
+  controlPanel.updatePalette(palette)
+
   // draw those points
   points.map((p,i) => {
     p.x = p.x + interval * p.speed / 1000 * Math.cos(p.angle)
@@ -78,8 +82,15 @@ function drawScene(timestamp=performance.now()) {
     width: canvas.width,
     height: canvas.height
   }
-  waveFormAnalyser.drawWaveform(drawParams)
-  frequencyBarGraphAnalyser.drawFrequencyBarGraph(drawParams)
+
+  const {waveForm, frequencyBarGraph} = controlPanel.options()
+  if (waveForm) {
+    wfAnalyser.drawWaveform(drawParams)
+  }
+
+  if (frequencyBarGraph) {
+    fbgAnalyser.drawFrequencyBarGraph(drawParams)
+  }
 
   lasttime = timestamp
 }

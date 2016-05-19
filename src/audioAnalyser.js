@@ -64,7 +64,7 @@ export default class AudioAnalyser {
     let x = 0
 
     for(var i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i] / 2
+      barHeight = dataArray[i]
 
       ctx.fillStyle = color
       ctx.fillRect(x,height-barHeight/2,barWidth,barHeight)
