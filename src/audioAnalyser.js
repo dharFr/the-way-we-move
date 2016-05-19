@@ -67,10 +67,64 @@ export default class AudioAnalyser {
       barHeight = dataArray[i]
 
       ctx.fillStyle = color
-      ctx.fillRect(x,height-barHeight/2,barWidth,barHeight)
+      ctx.fillRect(x, height - barHeight / 2, barWidth, barHeight)
 
       x += barWidth + 1
     }
+  }
+
+  getNumbersFromAudioData({
+    howMany = 256,
+    type    = 'frequency'
+  }) {
+
+    if (this.source == null) {
+      return []
+    }
+
+    const bufferLength = this.analyser.frequencyBinCount
+    const dataArray    = new Uint8Array(bufferLength)
+
+    switch(type) {
+      case 'frequency':
+        this.analyser.getByteFrequencyData(dataArray)
+        break
+      case 'wave':
+        this.analyser.getByteTimeDomainData(dataArray)
+        break
+      default:
+        throw new TypeError("Unexpected `type` parameter. `type` must be either 'frequency' or 'wave'")
+        return
+    }
+
+    // As we have `bufferLength` number from the analyser and we want `howMany`
+    // numbers as an output, we need to _normalize_ `dataArray` to reflect the
+    // frequencies no matter how many numbers are requested.
+    //
+    const ratio = Math.round(bufferLength / howMany)
+
+    const result = []
+    let acc = -1
+
+    for(let i = 0; i < bufferLength; i++) {
+      const currentValue = dataArray[i] / 255
+
+      if (ratio >= 1) {
+        acc = (acc === -1) ? currentValue : (acc + currentValue) / 2
+        if (i % ratio === 0) {
+          result.push(acc)
+          acc = -1
+        }
+      }
+      else {
+        // TODO
+      }
+    }
+    // make sure we have `howMany` values
+    if (ratio >= 1 && acc !== -1 && result.length < howMany) {
+      result.push(acc)
+    }
+    return result
   }
 
   draw({ctx, color, width, height}) {

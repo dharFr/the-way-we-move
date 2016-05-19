@@ -32,8 +32,9 @@ function addRandomPoint(colorIdx) {
   points.push(new Point({
     x        : Math.floor(Math.random() * canvas.width),
     y        : Math.floor(Math.random() * canvas.height),
-    angle    : Math.floor(Math.random() * 2 * Math.PI) ,
-    speed    : 20 + Math.floor(Math.random() * 480), // pixels/s Keep the value between 20 and 500 or the scene condemned to stagnation
+    radius   : 4,
+    angle    : Math.floor(Math.random() * 2 * Math.PI),
+    speed    : 0,
     colorIdx
   }))
 }
@@ -55,13 +56,40 @@ function drawScene(timestamp=performance.now()) {
   ctx.fillStyle = palette.background()
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-
   controlPanel.updatePalette(palette)
+
+  const numbersFromFreq = fbgAnalyser.getNumbersFromAudioData({
+    howMany : NUM_POINTS,
+    type    : 'frequency'
+  })
+
+  const numbersFromWF = wfAnalyser.getNumbersFromAudioData({
+    howMany : NUM_POINTS,
+    type    : 'wave'
+  })
 
   // draw those points
   points.map((p,i) => {
-    p.x = p.x + interval * p.speed / 1000 * Math.cos(p.angle)
-    p.y = p.y + interval * p.speed / 1000 * Math.sin(p.angle)
+    let angleVariant = 0
+
+    if (numbersFromWF.length) {
+      // Something between 4 and 20, depending on the frequency data
+      p.radius = 4 + Math.floor(numbersFromFreq[i] * 16)
+    }
+
+    if (numbersFromFreq.length) {
+      // As `numbersFromWF` are mostly really close to 0.5 (in a quiet env), let's use
+      // Math.min(1, Math.abs(value - 0.5) * 4)) instead of the raw value to get a better amplitude
+      const value = Math.min(1, (Math.abs(numbersFromWF[i] - 0.5) * 4))
+      // In pixels/s. Keep the value between 50 and 500 or the scene condemned to stagnation
+      p.speed = 50 + Math.floor(value * 450)
+
+      // Testing speed + angle variations but it doesn't look really good as it is...
+      angleVariant = (numbersFromWF[i] - 0.5) * Math.PI
+    }
+
+    p.x = p.x + interval * p.speed / 1000 * Math.cos(p.angle + angleVariant)
+    p.y = p.y + interval * p.speed / 1000 * Math.sin(p.angle + angleVariant)
     // console.log('>>> updated point to:', p.x, p.y)
 
     if ((p.x < 0 || p.x > canvas.width) || (p.y < 0 || p.y > canvas.height)) {
