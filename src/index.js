@@ -21,11 +21,9 @@ function createRandomPoint() {
   points.push(new Point({
     x        : Math.floor(Math.random() * canvas.width),
     y        : Math.floor(Math.random() * canvas.height),
-    move     : {
-      angle : Math.floor(Math.random() * 2 * Math.PI) ,
-      speed : 20 + Math.floor(Math.random() * 480) // pixels/s Keep the value between 20 and 500 or the scene condemned to stagnation
-    },
-    colorIdx : Math.floor(Math.random() * 4) + 1 // color paletes are 5 colors. Pick an index between 1 and 4 so the 1st color is excluded (as it's used for scene background)
+    angle    : Math.floor(Math.random() * 2 * Math.PI) ,
+    speed    : 20 + Math.floor(Math.random() * 480),      // pixels/s Keep the value between 20 and 500 or the scene condemned to stagnation
+    colorIdx : Math.floor(Math.random() * 4) + 1          // color paletes are 5 colors. Pick an index between 1 and 4 so the 1st color is excluded (as it's used for scene background)
   }))
 }
 
@@ -36,7 +34,6 @@ function drawScene(timestamp=performance.now()) {
   }
   const interval = timestamp - lasttime
   const palette = colors.getPalette(timestamp)
-  Point.definePalette(palette)
 
   // Background
   ctx.fillStyle = colors.toCSS(palette, 0)
@@ -56,14 +53,12 @@ function drawScene(timestamp=performance.now()) {
     }
     else {
       // console.log('>>> redrawing')
-      p.draw()
+      p.draw(ctx, colors.toCSS(palette, p.colorIdx))
     }
   })
 
   lasttime = timestamp
 }
-
-Point.defineContext(ctx)
 
 // Generate some random points
 for (let i = 0; i < NUM_POINTS; i++) {
