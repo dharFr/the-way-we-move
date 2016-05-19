@@ -1,41 +1,18 @@
 import hexPalettes from './colors.json'
 import hexRgb   from 'hex-rgb'
+import ColorPalette from './colorPalette.js'
 
-const rgbPalettes = []
 
 function getRamdomPalette() {
   const idx = Math.floor(Math.random() * hexPalettes.length)
-  // Convert hex color to rbg color and cache the result
-  if (!rgbPalettes[idx]) {
-    rgbPalettes[idx] = hexPalettes[idx]
-      .map(hex => hexRgb(hex))
-  }
-  const res = {
-    idx     : idx,
-    colors : rgbPalettes[idx]
-  }
-  return res
+  return new ColorPalette(idx, hexPalettes[idx])
 }
 
-function logPalette(msg, palette) {
-  let args = []
-  msg = `${msg} #${palette.idx} `
-
-  for (var i = 0; i < palette.colors.length; i++) {
-    palette.colors[i]
-    msg += '%c  '
-    args.push(`background: ${toCSS(palette.colors, i)};`)
-  }
-  console.log(msg, ...args)
-}
-
-function computeCurrentPalette(prev, next, progress) {
-
-  const colors = prev.map( (prevColor, i) => {
-    const nextColor = next[i]
-    return computeCurrentColor(prevColor, nextColor, progress)
-  })
-  return { colors }
+function updateCurrentPalette(prev, next, progress) {
+  current = new ColorPalette(null, prev.colors
+    .map( (prevColor, i) =>
+      computeCurrentColor(prevColor, next.colors[i], progress)
+    ))
 }
 
 function computeCurrentColor(prevColor, nextColor, progress) {
@@ -60,19 +37,14 @@ let current, prev, next
 let pickTime
 let waitUntil = 0
 
-export function toCSS(colors, idx) {
-  const c = colors[idx]
-  return `rgb(${c[0]}, ${c[1]}, ${c[2]})`
-}
-
 export function getPalette(timestamp) {
   if (prev == null) {
     next = getRamdomPalette()
-    logPalette(`Picked initial color palette`, next)
+    next.log('Picked initial color palette')
     togglePalettes(timestamp)
   }
   if (timestamp < waitUntil) {
-    return current.colors
+    return current
   }
   else {
     waitUntil = 0
@@ -80,7 +52,7 @@ export function getPalette(timestamp) {
 
   if (next == null) {
     next = getRamdomPalette()
-    logPalette(`>>> Transitioning to the next color palette`, next)
+    next.log('Transitioning to the next color palette')
     pickTime = timestamp
   }
 
@@ -90,10 +62,10 @@ export function getPalette(timestamp) {
     console.log(`<<< done`)
   }
   else if (progress > 0) {
-    current = computeCurrentPalette(prev.colors, next.colors, progress)
+    updateCurrentPalette(prev, next, progress)
   }
 
-  return current.colors
+  return current
 }
 
 export function nextPalette() {

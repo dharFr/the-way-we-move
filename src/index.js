@@ -19,13 +19,20 @@ window.addEventListener('resize', syncSize, false)
 
 canvas.addEventListener('click', _ => colors.nextPalette())
 
-function createRandomPoint() {
+function generateRandomPoints(palette) {
+  // Generate some random points
+  for (let i = 0; i < NUM_POINTS; i++) {
+    addRandomPoint(palette.randomColorIndex())
+  }
+}
+
+function addRandomPoint(colorIdx) {
   points.push(new Point({
     x        : Math.floor(Math.random() * canvas.width),
     y        : Math.floor(Math.random() * canvas.height),
     angle    : Math.floor(Math.random() * 2 * Math.PI) ,
-    speed    : 20 + Math.floor(Math.random() * 480),      // pixels/s Keep the value between 20 and 500 or the scene condemned to stagnation
-    colorIdx : Math.floor(Math.random() * 4) + 1          // color paletes are 5 colors. Pick an index between 1 and 4 so the 1st color is excluded (as it's used for scene background)
+    speed    : 20 + Math.floor(Math.random() * 480), // pixels/s Keep the value between 20 and 500 or the scene condemned to stagnation
+    colorIdx
   }))
 }
 
@@ -37,8 +44,13 @@ function drawScene(timestamp=performance.now()) {
   const interval = timestamp - lasttime
   const palette = colors.getPalette(timestamp)
 
+  // Generate some random points at startup
+  if (points.length === 0) {
+    generateRandomPoints(palette)
+  }
+
   // Background
-  ctx.fillStyle = colors.toCSS(palette, 0)
+  ctx.fillStyle = palette.background()
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   // draw those points
@@ -51,27 +63,22 @@ function drawScene(timestamp=performance.now()) {
       // point is out of the scene. Remove it and create a new one
       // console.log('>>> out of the scene')
       points.splice(i, 1)
-      createRandomPoint()
+      addRandomPoint(palette.randomColorIndex())
     }
     else {
       // console.log('>>> redrawing')
-      p.draw(ctx, colors.toCSS(palette, p.colorIdx))
+      p.draw(ctx, palette.color(p.colorIdx))
     }
   })
 
   analyser.draw({
     ctx,
-    color: colors.toCSS(palette, 2),
+    color: palette.color(2),
     width: canvas.width,
     height: canvas.height
   })
 
   lasttime = timestamp
-}
-
-// Generate some random points
-for (let i = 0; i < NUM_POINTS; i++) {
-  createRandomPoint()
 }
 
 (function animloop(timestamp){
