@@ -14,6 +14,17 @@ I'm thinking about using more inputs in the future, such as the gyroscope, camer
 
 You can give it a try at https://the-way-we-move.surge.sh/
 
+### How does it look?
+
+Here is a screenshot but you'd better click the link above the enjoy the _real_ experience :metal:
+
+![The Way We Move — ](screenshots/twwm2.png?raw=true "Project's Screenshot")
+
+### A few links
+
+ - [Generative Art with Node.js and Canvas](https://mattdesl.svbtle.com/generative-art-with-nodejs-and-canvas) was a huge source of inspiration. Especially the sections about *Color Palettes* and *Color Contrast*
+ - [ColourLovers.com API](http://www.colourlovers.com/api) : As mentionned in the blog post linked above, the colors palettes used the COLOURlovers community. Kudos!
+
 ### What about the name?
 
 It's named after _The way we move_, a song and album by Langhorne Slim that I'm totally fond of at the moment.
