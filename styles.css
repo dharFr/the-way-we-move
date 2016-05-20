@@ -40,3 +40,6 @@ canvas {
 .control-panel input[type=range] {
   width: 110px;
 }
+.control-panel a {
+  color: inherit;
+}
