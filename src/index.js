@@ -87,8 +87,8 @@ function drawScene(timestamp=performance.now()) {
       // As `numbersFromWF` are mostly really close to 0.5 (in a quiet env), let's use
       // Math.min(1, Math.abs(value - 0.5) * 10)) instead of the raw value to get a better amplitude
       const value = Math.min(1, (Math.abs(numbersFromWF[i] - 0.5) * 10))
-      // In pixels/s. Keep the value between 50 and 500 or the scene condemned to stagnation
-      p.speed = 50 + Math.floor(value * 850)
+      // In pixels/s. Keep the value between 50 and 600 or the scene condemned to stagnation
+      p.speed = 50 + Math.floor(value * 550)
 
       // Testing speed + angle variations but it doesn't look really good as it is...
       // angleVariant = (numbersFromWF[i] - 0.5) * Math.PI

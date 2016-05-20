@@ -3,11 +3,12 @@ const toggleWFButton  = document.getElementById('toogleWaveform')
 const toggleFBGButton = document.getElementById('toogleFrequencyBarGraph')
 const numPointsRange  = document.getElementById('numPointsRange')
 const numPointsOutput = document.getElementById('numPoints')
-const options         = JSON.parse(localStorage.getItem('options')) || {
+const options         = Object.assign({
   waveForm          : false,
   frequencyBarGraph : false,
   numPoints         : 512
-}
+}, JSON.parse(localStorage.getItem('options')))
+
 // Initial state
 toggleWFButton.checked  = options.waveForm
 toggleFBGButton.checked = options.frequencyBarGraph
