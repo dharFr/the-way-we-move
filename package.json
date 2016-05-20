@@ -1,7 +1,7 @@
 {
   "name": "the-way-we-move",
   "version": "1.0.0",
-  "description": "still not sure what this is about",
+  "description": "Let's play with canvas drawing and WebAudio API, see if something interesting might appear. A first attempt to _Code like no one's watching_.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d",
@@ -25,5 +25,13 @@
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   },
-  "keywords": []
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dharFr/the-way-we-move.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dharFr/the-way-we-move/issues"
+  },
+  "homepage": "https://github.com/dharFr/the-way-we-move#readme"
 }
