@@ -29,7 +29,6 @@ toggleFBGButton.addEventListener('change', e => {
 numPointsRange.addEventListener('input', e => {
   options.numPoints = +(numPointsRange.value)
   numPointsOutput.value = options.numPoints
-  console.log('options.numPoints changed to', options.numPoints)
   localStorage.setItem('options', JSON.stringify(options))
 })
 

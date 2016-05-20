@@ -7,11 +7,15 @@ export default class AudioAnalyser {
     this.analyser = audioCtx.createAnalyser()
     this.source   = null
 
-    navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
-      this.source = audioCtx.createMediaStreamSource(stream)
-      this.source.connect(this.analyser)
-      this.analyser.fftSize = fftSize
-    })
+    navigator.mediaDevices.getUserMedia({audio:true})
+      .then(stream => {
+        this.source = audioCtx.createMediaStreamSource(stream)
+        this.source.connect(this.analyser)
+        this.analyser.fftSize = fftSize
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   drawWaveform({ctx, color, width, height}) {

@@ -1,4 +1,3 @@
-
 import * as colors from './colors.js'
 import Point from './point.js'
 import AudioAnalyser from './audioAnalyser.js'
@@ -33,7 +32,7 @@ function addRandomPoint(colorIdx) {
     y        : Math.floor(Math.random() * canvas.height),
     radius   : 4,
     angle    : Math.floor(Math.random() * 2 * Math.PI),
-    speed    : 0,
+    speed    : 50, // Set a minimal speed so the point will move event if audioAnalyser doesn't work (e.g. getUserMedia() not supported)
     colorIdx
   }))
 }
