@@ -1,5 +1,3 @@
-import * as colors from './colors.js'
-
 export default class Point {
 
   constructor({x, y, radius, angle, speed, colorIdx}) {

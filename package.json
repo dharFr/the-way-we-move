@@ -4,9 +4,9 @@
   "description": "still not sure what this is about",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack",
-    "deploy": "npm run build && surge --domain https://the-way-we-move.surge.sh",
+    "start": "webpack-dev-server -d",
+    "build": "webpack -p",
+    "deploy": "npm run build && surge --project ./ --domain https://the-way-we-move.surge.sh",
     "test": "echo \"Life's too short\" && exit 1"
   },
   "author": "Olivier Audard <audard@gmail.com>",

@@ -98,7 +98,6 @@ export default class AudioAnalyser {
         break
       default:
         throw new TypeError("Unexpected `type` parameter. `type` must be either 'frequency' or 'wave'")
-        return
     }
 
     // As we have `bufferLength` number from the analyser and we want `howMany`

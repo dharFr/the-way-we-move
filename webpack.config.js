@@ -2,8 +2,8 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: [
-    './polyfills/requestAnimationFrame.js',
-    './polyfills/getUserMedia.js',
+    './src/polyfills/requestAnimationFrame.js',
+    './src/polyfills/getUserMedia.js',
     './src/index.js'
   ],
   output: {
@@ -26,7 +26,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js']
-  },
-  // debug: true,
-  devtool: 'inline-source-map'
+  }
 }
