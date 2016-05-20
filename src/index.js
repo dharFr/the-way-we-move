@@ -6,7 +6,6 @@ import controlPanel from './controlPanel.js'
 
 const canvas          = document.getElementById('canvas')
 const ctx             = canvas.getContext('2d')
-const NUM_POINTS      = 512
 const points          = []
 const wfAnalyser      = new AudioAnalyser(1024)
 const fbgAnalyser     = new AudioAnalyser()
@@ -21,9 +20,9 @@ syncSize()
 window.addEventListener('resize', syncSize, false)
 canvas.addEventListener('click', _ => colors.nextPalette())
 
-function generateRandomPoints(palette) {
+function generateRandomPoints(numPoints, palette) {
   // Generate some random points
-  for (let i = 0; i < NUM_POINTS; i++) {
+  for (let i = points.length; i < numPoints; i++) {
     addRandomPoint(palette.randomColorIndex())
   }
 }
@@ -47,9 +46,16 @@ function drawScene(timestamp=performance.now()) {
   const interval = timestamp - lasttime
   const palette = colors.getPalette(timestamp)
 
-  // Generate some random points at startup
-  if (points.length === 0) {
-    generateRandomPoints(palette)
+  // Get options from control panel
+  const {waveForm, frequencyBarGraph, numPoints} = controlPanel.options()
+
+  // Generate some random points if missing
+  if (points.length < numPoints) {
+    generateRandomPoints(numPoints, palette)
+  }
+  // or remove a few if we have too many of them
+  else if (numPoints < points.length) {
+    points.splice(numPoints, points.length)
   }
 
   // Background
@@ -59,12 +65,12 @@ function drawScene(timestamp=performance.now()) {
   controlPanel.updatePalette(palette)
 
   const numbersFromFreq = fbgAnalyser.getNumbersFromAudioData({
-    howMany : NUM_POINTS,
+    howMany : numPoints,
     type    : 'frequency'
   })
 
   const numbersFromWF = wfAnalyser.getNumbersFromAudioData({
-    howMany : NUM_POINTS,
+    howMany : numPoints,
     type    : 'wave'
   })
 
@@ -93,10 +99,8 @@ function drawScene(timestamp=performance.now()) {
     // console.log('>>> updated point to:', p.x, p.y)
 
     if ((p.x < 0 || p.x > canvas.width) || (p.y < 0 || p.y > canvas.height)) {
-      // point is out of the scene. Remove it and create a new one
-      // console.log('>>> out of the scene')
+      // Remove point if it is out of the scene. A new one will be created
       points.splice(i, 1)
-      addRandomPoint(palette.randomColorIndex())
     }
     else {
       // console.log('>>> redrawing')
@@ -111,7 +115,6 @@ function drawScene(timestamp=performance.now()) {
     height: canvas.height
   }
 
-  const {waveForm, frequencyBarGraph} = controlPanel.options()
   if (waveForm) {
     wfAnalyser.drawWaveform(drawParams)
   }

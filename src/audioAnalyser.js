@@ -103,13 +103,13 @@ export default class AudioAnalyser {
     const result = []
     let acc = -1
 
-    for (let i = 0; i < bufferLength; i++) {
+    for (let i = 0; (i < bufferLength && result.length < howMany); i++) {
       const currentValue = dataArray[i] / 255
 
       // Case 1: We need fewer points than the buffer provides, let's
       // _accumulate_ an average value
       if (howMany <= bufferLength) {
-        const ratio = Math.round(bufferLength / howMany)
+        const ratio = Math.floor(bufferLength / howMany)
         acc = (acc === -1) ? currentValue : (acc + currentValue) / 2
         if (i % ratio === 0) {
           result.push(acc)

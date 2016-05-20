@@ -37,3 +37,6 @@ canvas {
 .control-panel label {
   display: block;
 }
+.control-panel input[type=range] {
+  width: 110px;
+}
