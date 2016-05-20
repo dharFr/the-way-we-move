@@ -6,7 +6,7 @@ import controlPanel from './controlPanel.js'
 
 const canvas          = document.getElementById('canvas')
 const ctx             = canvas.getContext('2d')
-const NUM_POINTS      = 100
+const NUM_POINTS      = 512
 const points          = []
 const wfAnalyser      = new AudioAnalyser(1024)
 const fbgAnalyser     = new AudioAnalyser()
@@ -79,13 +79,13 @@ function drawScene(timestamp=performance.now()) {
 
     if (numbersFromFreq.length) {
       // As `numbersFromWF` are mostly really close to 0.5 (in a quiet env), let's use
-      // Math.min(1, Math.abs(value - 0.5) * 4)) instead of the raw value to get a better amplitude
-      const value = Math.min(1, (Math.abs(numbersFromWF[i] - 0.5) * 4))
+      // Math.min(1, Math.abs(value - 0.5) * 10)) instead of the raw value to get a better amplitude
+      const value = Math.min(1, (Math.abs(numbersFromWF[i] - 0.5) * 10))
       // In pixels/s. Keep the value between 50 and 500 or the scene condemned to stagnation
-      p.speed = 50 + Math.floor(value * 450)
+      p.speed = 50 + Math.floor(value * 850)
 
       // Testing speed + angle variations but it doesn't look really good as it is...
-      angleVariant = (numbersFromWF[i] - 0.5) * Math.PI
+      // angleVariant = (numbersFromWF[i] - 0.5) * Math.PI
     }
 
     p.x = p.x + interval * p.speed / 1000 * Math.cos(p.angle + angleVariant)

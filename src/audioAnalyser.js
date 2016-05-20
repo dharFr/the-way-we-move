@@ -100,28 +100,33 @@ export default class AudioAnalyser {
     // As we have `bufferLength` number from the analyser and we want `howMany`
     // numbers as an output, we need to _normalize_ `dataArray` to reflect the
     // frequencies no matter how many numbers are requested.
-    //
-    const ratio = Math.round(bufferLength / howMany)
-
     const result = []
     let acc = -1
 
-    for(let i = 0; i < bufferLength; i++) {
+    for (let i = 0; i < bufferLength; i++) {
       const currentValue = dataArray[i] / 255
 
-      if (ratio >= 1) {
+      // Case 1: We need fewer points than the buffer provides, let's
+      // _accumulate_ an average value
+      if (howMany <= bufferLength) {
+        const ratio = Math.round(bufferLength / howMany)
         acc = (acc === -1) ? currentValue : (acc + currentValue) / 2
         if (i % ratio === 0) {
           result.push(acc)
           acc = -1
         }
       }
+      // Case 2: We need more points then the buffer provides, let's duplicate
+      // the values as necessary
       else {
-        // TODO
+        const ratio = Math.ceil(howMany / bufferLength)
+        for (let j = 0; (j < ratio && result.length < howMany); j++) {
+          result.push(currentValue)
+        }
       }
     }
     // make sure we have `howMany` values
-    if (ratio >= 1 && acc !== -1 && result.length < howMany) {
+    if (howMany <= bufferLength && acc !== -1 && result.length < howMany) {
       result.push(acc)
     }
     return result
