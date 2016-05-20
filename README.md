@@ -1,4 +1,4 @@
-## the-way-we-move
+## The Way We Move
 
 Let's play with canvas drawing and WebAudio API, see if something interesting might appear.
 A first attempt to _Code like no one's watching_.
@@ -14,7 +14,7 @@ I'm thinking about using more inputs in the future, such as the gyroscope, camer
 
 You can give it a try at https://the-way-we-move.surge.sh/
 
-### What about the name
+### What about the name?
 
 It's named after _The way we move_, a song and album by Langhorne Slim that I'm totally fond of at the moment.
 
