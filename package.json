@@ -1,13 +1,15 @@
 {
-  "name": "the way we move",
+  "name": "the-way-we-move",
   "version": "1.0.0",
   "description": "still not sure what this is about",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "deploy": "npm run build && surge --domain https://the-way-we-move.surge.sh",
+    "test": "echo \"Life's too short\" && exit 1"
   },
-  "author": "",
+  "author": "Olivier Audard <audard@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "hex-rgb": "^1.0.0",
@@ -21,6 +23,7 @@
     "exports-loader": "^0.6.3",
     "imports-loader": "^0.6.5",
     "json-loader": "^0.5.4",
+    "surge": "^0.18.0",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   },
