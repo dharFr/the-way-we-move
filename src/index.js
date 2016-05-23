@@ -6,11 +6,13 @@ import controlPanel from './controlPanel.js'
 // SW plugin
 require('offline-plugin/runtime.js').install()
 
-const canvas          = document.getElementById('canvas')
-const ctx             = canvas.getContext('2d')
-const points          = []
-const wfAnalyser      = new AudioAnalyser(1024)
-const fbgAnalyser     = new AudioAnalyser()
+const canvas         = document.getElementById('canvas')
+const themeMeta      = document.head.querySelector('meta[name="theme-color"]')
+const backgroundMeta = document.head.querySelector('meta[name="background-color"]')
+const ctx            = canvas.getContext('2d')
+const points         = []
+const wfAnalyser     = new AudioAnalyser(1024)
+const fbgAnalyser    = new AudioAnalyser()
 
 let lasttime = 0
 function syncSize() {
@@ -63,6 +65,9 @@ function drawScene(timestamp=performance.now()) {
   // Background
   ctx.fillStyle = palette.background()
   ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+  themeMeta.content = palette.foreground()
+  backgroundMeta.content = palette.background()
 
   controlPanel.updatePalette(palette)
 
