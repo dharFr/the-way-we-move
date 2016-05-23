@@ -1,4 +1,5 @@
-const webpack = require('webpack')
+const webpack       = require('webpack')
+const OfflinePlugin = require('offline-plugin')
 
 let entries = [
   './src/polyfills/requestAnimationFrame.js',
@@ -31,5 +32,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js']
-  }
+  },
+  plugins: [
+    // ... other plugins
+    // it always better if OfflinePlugin is the last plugin added
+    new OfflinePlugin({
+      AppCache: false,
+      caches: {
+        main: ['index.html', 'styles.css', 'dist/bundle.js']
+      },
+      externals: ['index.html', 'styles.css']
+    })
+  ]
 }

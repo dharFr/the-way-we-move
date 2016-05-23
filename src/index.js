@@ -3,6 +3,9 @@ import Point from './point.js'
 import AudioAnalyser from './audioAnalyser.js'
 import controlPanel from './controlPanel.js'
 
+// SW plugin
+require('offline-plugin/runtime.js').install()
+
 const canvas          = document.getElementById('canvas')
 const ctx             = canvas.getContext('2d')
 const points          = []
