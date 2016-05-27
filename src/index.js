@@ -85,12 +85,12 @@ function drawScene(timestamp=performance.now()) {
   points.map((p,i) => {
     let angleVariant = 0
 
-    if (numbersFromWF.length) {
+    if (numbersFromFreq.length) {
       // Something between 4 and 20, depending on the frequency data
       p.radius = 4 + Math.floor(numbersFromFreq[i] * 16)
     }
 
-    if (numbersFromFreq.length) {
+    if (numbersFromWF.length) {
       // As `numbersFromWF` are mostly really close to 0.5 (in a quiet env), let's use
       // Math.min(1, Math.abs(value - 0.5) * 10)) instead of the raw value to get a better amplitude
       const value = Math.min(1, (Math.abs(numbersFromWF[i] - 0.5) * 10))
