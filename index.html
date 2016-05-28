@@ -20,6 +20,7 @@
 </head>
 <body class='fullpage'>
   <canvas id="canvas"></canvas>
+  <video id="video" preload autoplay loop muted></video>
   <div id='controlPanel' class="control-panel">
     <label for="toogleWaveform">
       <input type="checkbox" name="toogleWaveform" id="toogleWaveform"/>
@@ -37,6 +38,8 @@
       <output name="numPoints" id="numPoints">512</output>
     </label>
   </div>
+  <script src="node_modules/tracking/build/tracking-min.js" defer></script>
+  <script src="node_modules/tracking/build/data/face-min.js" defer></script>
   <script src="dist/bundle.js"></script>
 </body>
 </html>

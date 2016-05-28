@@ -15,6 +15,12 @@ canvas {
   cursor: pointer;
 }
 
+video {
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+}
+
 .control-panel {
   background: rgb(0, 0, 0, 0.2);
   color: rgb(255, 255, 255);

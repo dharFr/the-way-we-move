@@ -15,6 +15,7 @@
   "dependencies": {
     "hex-rgb": "^1.0.0",
     "request-frame": "^1.4.1",
+    "tracking": "^1.1.2",
     "wcag-contrast": "^0.1.0"
   },
   "devDependencies": {
