@@ -2,3 +2,5 @@ dist
 # service worker must live at root, but as it's a generated file,
 # it doesn't need to be added to the repo
 sw.js
+.DS_Store
+node_modules

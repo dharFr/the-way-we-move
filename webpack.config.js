@@ -2,19 +2,20 @@ const webpack       = require('webpack')
 const OfflinePlugin = require('offline-plugin')
 
 let entries = [
-  './src/polyfills/requestAnimationFrame.js',
-  './src/polyfills/getUserMedia.js',
-  './src/index.js'
+  './src/js/polyfills/requestAnimationFrame.js',
+  './src/js/polyfills/getUserMedia.js',
+  './src/js/index.js'
 ]
 
 if (process.env.NODE_ENV == 'production') {
-  entries.push('./src/stats/ga.js')
+  entries.push('./src/js/stats/ga.js')
 }
 
 module.exports = {
   entry: entries,
   output: {
-    filename: 'dist/bundle.js'
+    path: 'dist',
+    filename: 'js/bundle.js'
   },
   module: {
     loaders: [
@@ -39,7 +40,7 @@ module.exports = {
     new OfflinePlugin({
       AppCache: false,
       caches: {
-        main: ['index.html', 'styles.css', 'dist/bundle.js']
+        main: ['index.html', 'styles.css', 'js/bundle.js']
       },
       externals: ['index.html', 'styles.css']
     })

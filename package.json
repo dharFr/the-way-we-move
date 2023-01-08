@@ -4,9 +4,10 @@
   "description": "Let's play with canvas drawing and WebAudio API, see if something interesting might appear. A first attempt to _Code like no one's watching_.",
   "main": "index.js",
   "scripts": {
-    "clear": "rm -f dist/*",
+    "clear": "rm -rf dist/*",
     "start": "webpack-dev-server -d",
     "build": "npm run clear && NODE_ENV=production webpack -p",
+    "postbuild": "cp -r src/{index.html,manifest.json,styles.css,images} dist",
     "deploy": "npm run build && surge --project ./ --domain https://the-way-we-move.surge.sh",
     "test": "echo \"Life's too short\" && exit 1"
   },
