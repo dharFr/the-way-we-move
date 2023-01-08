@@ -4,7 +4,8 @@ import AudioAnalyser from './audioAnalyser.js'
 import controlPanel from './controlPanel.js'
 
 // SW plugin
-require('offline-plugin/runtime.js').install()
+import * as OfflinePluginRuntime from '@lcdp/offline-plugin/runtime';
+OfflinePluginRuntime.install();
 
 const canvas         = document.getElementById('canvas')
 const themeMeta      = document.head.querySelector('meta[name="theme-color"]')

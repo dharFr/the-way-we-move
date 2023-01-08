@@ -13,12 +13,12 @@
   "author": "Olivier Audard <olivier@audard.net>",
   "license": "MIT",
   "dependencies": {
+    "@lcdp/offline-plugin": "^5.1.1",
     "hex-rgb": "^5.0.0",
     "request-frame": "^1.5.3",
     "wcag-contrast": "^3.0.0"
   },
   "devDependencies": {
-    "offline-plugin": "^5.0.7",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
