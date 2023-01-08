@@ -2,17 +2,11 @@ const path = require('path')
 const webpack       = require('webpack')
 const OfflinePlugin = require('@lcdp/offline-plugin')
 
-let entries = [
-  './src/js/index.js'
-]
-
-if (process.env.NODE_ENV == 'production') {
-  entries.push('./src/js/stats/ga.js')
-}
-
 module.exports = {
   mode: 'development',
-  entry: entries,
+  entry: [
+    './src/js/index.js'
+  ],
   devServer: {
     static: './dist',
   },
