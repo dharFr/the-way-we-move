@@ -3,8 +3,6 @@ const webpack       = require('webpack')
 const OfflinePlugin = require('@lcdp/offline-plugin')
 
 let entries = [
-  './src/js/polyfills/requestAnimationFrame.js',
-  './src/js/polyfills/getUserMedia.js',
   './src/js/index.js'
 ]
 
