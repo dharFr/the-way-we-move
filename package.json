@@ -5,28 +5,23 @@
   "main": "index.js",
   "scripts": {
     "clear": "rm -rf dist/*",
-    "start": "webpack-dev-server -d",
-    "build": "npm run clear && NODE_ENV=production webpack -p",
+    "start": "webpack serve --open",
+    "build": "npm run clear && NODE_ENV=production webpack",
     "postbuild": "cp -r src/{index.html,manifest.json,styles.css,images} dist",
-    "deploy": "npm run build && surge --project ./ --domain https://the-way-we-move.surge.sh",
     "test": "echo \"Life's too short\" && exit 1"
   },
   "author": "Olivier Audard <olivier@audard.net>",
   "license": "MIT",
   "dependencies": {
-    "hex-rgb": "^1.0.0",
-    "request-frame": "^1.4.1",
-    "wcag-contrast": "^0.1.0"
+    "hex-rgb": "^5.0.0",
+    "request-frame": "^1.5.3",
+    "wcag-contrast": "^3.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.7.7",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.6.0",
-    "json-loader": "^0.5.4",
-    "offline-plugin": "^3.2.1",
-    "surge": "^0.18.0",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "offline-plugin": "^5.0.7",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   },
   "keywords": [],
   "repository": {

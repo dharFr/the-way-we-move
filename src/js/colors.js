@@ -1,5 +1,4 @@
 import hexPalettes from './colors.json'
-import hexRgb   from 'hex-rgb'
 import ColorPalette from './colorPalette.js'
 
 

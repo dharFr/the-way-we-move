@@ -1,4 +1,4 @@
-import contrast from 'wcag-contrast'
+import { rgb } from 'wcag-contrast'
 import hexRgb from 'hex-rgb'
 
 function toFunctionalNotation(c) {
@@ -10,7 +10,7 @@ function getBestContrast (background, colors) {
   let bestContrastIdx = 0
   let bestContrast = 0
   colors.forEach((p, i) => {
-    const ratio = contrast.rgb(background, p)
+    const ratio = rgb(background, p)
     if (ratio > bestContrast) {
       bestContrastIdx = i
       bestContrast = ratio
@@ -24,7 +24,7 @@ export default class ColorPalette {
   constructor(index = null, colors) {
     this.index  = index
     // convert to rbg  if necessary so we can compute the values more easily
-    this.colors = colors.map(c => Array.isArray(c) ? c : hexRgb(c))
+    this.colors = colors.map(c => Array.isArray(c) ? c : hexRgb(c, {format: 'array'}))
 
     this._background = this.colors[0]
     this._foreground = getBestContrast(this._background, this.colors.slice(1))
