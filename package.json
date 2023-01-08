@@ -7,7 +7,7 @@
     "clear": "rm -rf dist/*",
     "start": "webpack serve --open",
     "build": "npm run clear && NODE_ENV=production webpack",
-    "postbuild": "cp -r src/{index.html,manifest.json,styles.css,images} dist",
+    "postbuild": "cp src/index.html dist && cp src/manifest.json dist && cp src/styles.css dist && cp -r src/images dist",
     "test": "echo \"Life's too short\" && exit 1"
   },
   "author": "Olivier Audard <olivier@audard.net>",
