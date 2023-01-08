@@ -10,7 +10,7 @@
     "deploy": "npm run build && surge --project ./ --domain https://the-way-we-move.surge.sh",
     "test": "echo \"Life's too short\" && exit 1"
   },
-  "author": "Olivier Audard <audard@gmail.com>",
+  "author": "Olivier Audard <olivier@audard.net>",
   "license": "MIT",
   "dependencies": {
     "hex-rgb": "^1.0.0",
