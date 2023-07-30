@@ -12,7 +12,7 @@ I'm thinking about using more inputs in the future, such as the gyroscope, camer
 
 ### Live demo
 
-You can give it a try at https://the-way-we-move.surge.sh/
+You can give it a try at https://olivier.audard.net/the-way-we-move/
 
 ### How does it look?
 
